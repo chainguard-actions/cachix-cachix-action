@@ -1,0 +1,46 @@
+name: "Cachix"
+description: "Build and cache Nix packages using Cachix binary caches to significantly reduce build times"
+author: "Domen Kožar"
+inputs:
+  # Cache Configuration
+  name:
+    description: "Name of the Cachix cache to pull (substitute) from and optionally push to"
+    required: true
+  extraPullNames:
+    description: "Comma-separated list of additional Cachix cache names to pull (substitute) from"
+
+  # Authentication
+  authToken:
+    description: "Authentication token for Cachix, required for private cache access or to push to any cache"
+  signingKey:
+    description: "Private signing key for self-signed caches, used in addition to the auth token to sign store paths"
+
+  # Push Configuration
+  skipPush:
+    description: "Set to true to only pull from the cache without pushing any build results"
+    default: "false"
+  useDaemon:
+    description: "Use Cachix daemon mode to push store paths as they're built via post-build hooks. See Push modes in README for more information"
+    default: "true"
+  pathsToPush:
+    description: "Whitespace-separated list of specific store paths to push. Leave empty to push all build results"
+  pushFilter:
+    description: "Regular expression to exclude derivations from being pushed, for example \"(-source$|nixpkgs\\.tar\\.gz$)\". Ignored if pathsToPush is set. Warning: paths may still be pushed if they are part of another path's closure."
+
+  # Advanced Options
+  skipAddingSubstituter:
+    description: "Set to true to skip adding the cache as a Nix substituter"
+    default: "false"
+  cachixArgs:
+    description: "Additional command-line arguments to pass to Cachix commands. Defaults to -j8 for parallel processing"
+  cachixBin:
+    description: "Custom path to the Cachix binary if not using the default installation"
+  installCommand:
+    description: "Custom command to install Cachix instead of the default installation method"
+branding:
+  color: "blue"
+  icon: "database"
+runs:
+  using: "node24"
+  main: "dist/index.js"
+  post: "dist/index.js"

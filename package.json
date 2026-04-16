@@ -1,0 +1,43 @@
+{
+  "name": "cachix-action",
+  "version": "1.0.0",
+  "private": true,
+  "description": "nix-build with the help of caching to Cachix",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/index.js --sourcemap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cachix/cachix-action.git"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "author": "Domen Kožar",
+  "license": "ASL2",
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/exec": "^3.0.0",
+    "semver": "^7.7.4",
+    "tail": "^2.2.6",
+    "which": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/semver": "^7.7.1",
+    "@types/tail": "^2.2.3",
+    "@types/which": "^3.0.4",
+    "esbuild": "^0.27.4",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
