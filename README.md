@@ -1,5 +1,7 @@
 # cachix/cachix-action
 
+Build software only once and put it in a global cache
+
 Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/cachix/cachix-action](https://github.com/cachix/cachix-action).
 
 ## Versions
