@@ -1,0 +1,5 @@
+{
+  "owner": "cachix",
+  "name": "cachix-action",
+  "visibility": ""
+}
