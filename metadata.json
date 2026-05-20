@@ -1,7 +1,0 @@
-{
-  "owner": "cachix",
-  "name": "cachix-action",
-  "visibility": "internal",
-  "description": "Build software only once and put it in a global cache",
-  "block_publish": false
-}
