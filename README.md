@@ -8,7 +8,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
-| v17 | [`v17`](https://github.com/chainguard-actions/cachix-action/tree/v17) | — |
+| v17 | [`v17`](https://github.com/chainguard-actions/cachix--cachix-action/tree/v17) | — |
 
 ## Privacy
 
