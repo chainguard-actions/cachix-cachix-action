@@ -1,6 +1,6 @@
 # cachix/cachix-action
 
-Build software only once and put it in a global cache
+Build and cache Nix packages using Cachix binary caches to significantly reduce build times
 
 Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/cachix/cachix-action](https://github.com/cachix/cachix-action).
 
