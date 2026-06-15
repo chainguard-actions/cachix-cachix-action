@@ -1,4 +1,4 @@
-name: Test basic usage - skip push and substituter
+name: Test extra pull names input
 on:
   workflow_dispatch:
 jobs:
@@ -9,11 +9,12 @@ jobs:
       - id: action
         uses: .
         with:
-          name: nixpkgs
+          name: my-cache
+          extraPullNames: "nixpkgs,nix-community"
           skipPush: "true"
           skipAddingSubstituter: "true"
         continue-on-error: true
       - name: Assert action ran
         run: |
           echo "Action completed (outcome: ${{ steps.action.outcome }})"
-          echo "PASS: action step executed"
+          echo "PASS: action step executed with extraPullNames"

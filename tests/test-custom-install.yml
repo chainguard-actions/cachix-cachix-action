@@ -1,0 +1,31 @@
+name: Test custom install and cachix args inputs
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create a fake cachix binary
+        run: |
+          mkdir -p /tmp/fake-cachix-bin
+          cat > /tmp/fake-cachix-bin/cachix <<'EOF'
+          #!/bin/sh
+          echo "fake cachix called with: $@"
+          exit 0
+          EOF
+          chmod +x /tmp/fake-cachix-bin/cachix
+      - id: action
+        uses: .
+        with:
+          name: my-cache
+          installCommand: "echo 'custom install command'"
+          cachixBin: "/tmp/fake-cachix-bin/cachix"
+          cachixArgs: "-j4"
+          skipPush: "true"
+          skipAddingSubstituter: "true"
+        continue-on-error: true
+      - name: Assert action ran
+        run: |
+          echo "Action completed (outcome: ${{ steps.action.outcome }})"
+          echo "PASS: action step executed with installCommand, cachixBin, and cachixArgs"

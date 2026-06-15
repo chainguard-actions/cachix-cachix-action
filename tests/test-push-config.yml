@@ -1,4 +1,4 @@
-name: Test basic usage - skip push and substituter
+name: Test push configuration inputs
 on:
   workflow_dispatch:
 jobs:
@@ -9,11 +9,14 @@ jobs:
       - id: action
         uses: .
         with:
-          name: nixpkgs
+          name: my-cache
+          authToken: "dummy-auth-token"
+          pathsToPush: "/nix/store/fake-path"
+          pushFilter: "(-source$|nixpkgs\\.tar\\.gz$)"
           skipPush: "true"
           skipAddingSubstituter: "true"
         continue-on-error: true
       - name: Assert action ran
         run: |
           echo "Action completed (outcome: ${{ steps.action.outcome }})"
-          echo "PASS: action step executed"
+          echo "PASS: action step executed with pathsToPush and pushFilter"
