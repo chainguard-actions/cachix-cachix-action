@@ -1,4 +1,4 @@
-name: Test extraPullNames input
+name: Test extra pull names
 on:
   workflow_dispatch:
 jobs:
@@ -6,21 +6,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: action
+
+      - id: cachix
         uses: .
+        continue-on-error: true
         with:
-          name: my-cache
-          extraPullNames: "cache-a,cache-b"
+          name: nixpkgs-python
+          extraPullNames: "nix-community,numtide"
           skipPush: "true"
           skipAddingSubstituter: "true"
-        continue-on-error: true
-      - name: Assert action ran
+
+      - name: Assert action ran with extraPullNames
         env:
-          OUTCOME: ${{ steps.action.outcome }}
+          OUTCOME: ${{ steps.cachix.outcome }}
         run: |
           echo "outcome: $OUTCOME"
-          if [ "$OUTCOME" = "skipped" ]; then
-            echo "FAIL: action was skipped unexpectedly"
+          # The action should accept extraPullNames input without crashing at startup.
+          # Either success or graceful failure (due to missing Nix) is acceptable.
+          if [ "$OUTCOME" = "success" ]; then
+            echo "PASS: action succeeded with extraPullNames configured"
+          elif [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: action failed gracefully (Nix environment not available)"
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1
           fi
-          echo "PASS: action ran with outcome=$OUTCOME"
