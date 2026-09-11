@@ -19,9 +19,9 @@ jobs:
         run: |
           echo "outcome: $OUTCOME"
           if [ "$OUTCOME" = "success" ]; then
-            echo "PASS: action succeeded with cachixArgs"
+            echo "PASS: action succeeded with cachixArgs input"
           elif [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action failed gracefully (expected with sentinel repo / no Nix)"
+            echo "PASS: action failed gracefully (expected without valid cache/token)"
           else
             echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1

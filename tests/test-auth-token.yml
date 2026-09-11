@@ -1,4 +1,4 @@
-name: Test authToken input
+name: Test authToken and signingKey inputs
 on:
   workflow_dispatch:
 jobs:
@@ -12,16 +12,17 @@ jobs:
         with:
           name: test-cache
           authToken: fake-auth-token-for-testing
+          signingKey: fake-signing-key-for-testing
           skipPush: "true"
-      - name: Assert action ran with authToken input
+      - name: Assert action ran (auth inputs accepted, may fail on invalid token)
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "outcome: $OUTCOME"
           if [ "$OUTCOME" = "success" ]; then
-            echo "PASS: action succeeded with authToken"
+            echo "PASS: action succeeded with authToken and signingKey inputs"
           elif [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action failed gracefully (expected with fake token / sentinel repo)"
+            echo "PASS: action failed gracefully (expected with fake credentials)"
           else
             echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1

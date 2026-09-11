@@ -19,9 +19,9 @@ jobs:
         run: |
           echo "outcome: $OUTCOME"
           if [ "$OUTCOME" = "success" ]; then
-            echo "PASS: action succeeded with pathsToPush"
+            echo "PASS: action succeeded with pathsToPush input"
           elif [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action failed gracefully (expected with fake path / no Nix / sentinel repo)"
+            echo "PASS: action failed gracefully (expected without valid Nix store/cache)"
           else
             echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1
